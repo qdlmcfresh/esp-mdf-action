@@ -31,6 +31,9 @@ else
         latest)
             # Clone esp mdf master branch repository
             git clone --recursive https://github.com/espressif/esp-mdf.git
+            cd ~/esp/esp-mdf
+            esp_idf_version="`grep -Po "git clone -b (v\d\.(?:\d\.)*\d) --recursive https:\/\/github\.com\/espressif\/esp-idf\.git" README.md | grep -Po "(v\d\.(?:\d\.)*\d)"`"
+            git clone -b $esp_idf_version --recursive https://github.com/espressif/esp-idf.git
             ;;
         *)
             # Clone esp mdf repository
