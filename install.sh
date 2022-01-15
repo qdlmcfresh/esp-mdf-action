@@ -20,7 +20,8 @@ cd ~/esp
 
 echo "## Download esp-mdf repository"
 
-if [ -z "$esp_mdf_commit" ]; then
+if [ -n "$esp_mdf_commit" ]
+then
     git clone --recursive https://github.com/espressif/esp-mdf.git -b $esp_mdf_commit
 else
     case $esp_mdf_version in
