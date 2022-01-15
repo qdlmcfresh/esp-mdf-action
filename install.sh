@@ -25,7 +25,7 @@ then
     git clone --recursive https://github.com/espressif/esp-mdf.git
     cd ~/esp/esp-mdf
     git reset --hard $esp_mdf_commit
-    git submodule --init --recursive
+    git submodule update --init --recursive
 else
     case $esp_mdf_version in
         latest)
