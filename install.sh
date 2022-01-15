@@ -23,6 +23,7 @@ echo "## Download esp-mdf repository"
 if [ -n "$esp_mdf_commit" ]
 then
     git clone --recursive https://github.com/espressif/esp-mdf.git
+    cd ~/esp/esp-mdf
     git reset --hard $esp_mdf_commit
     git submodule --init --recursive
 else
