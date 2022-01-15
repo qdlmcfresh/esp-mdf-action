@@ -1,10 +1,13 @@
-# esp-idf-action
+# esp-mdf-action
 
-GitHub action to build ESP-IDF project using esp-idf framework. This action downloads the required ESP-IDF from espressif server and from github for latest branch. `v2` introduced cache esp-idf and its tools based on esp-idf version
+GitHub action to build ESP-MDF project using esp-mdf framework. This action downloads the required ESP-MDF from espressif server and from github for latest branch. `v2` introduced cache esp-mdf and its tools based on esp-mdf version
 
-The `esp_idf_version` as follows
+Set the `esp_mdf_version` as follows
 - `latest` (master branch)
-- [ESP-IDF version list](https://github.com/espressif/esp-idf/tags)
+- [ESP-MDF version list](https://github.com/espressif/esp-mdf/tags)
+
+or specify a commit with `esp_mdf_commit`
+
 
 **Note:**
 The action runs on ubuntu latest and python3 as default interpreter.
@@ -12,9 +15,9 @@ The action runs on ubuntu latest and python3 as default interpreter.
 ### Example
 
 ```yml
-# This is a esp idf workflow to build ESP32 based project
+# This is a esp mdf workflow to build ESP32 based project
 
-name: Build and Artifact the ESP-IDF Project
+name: Build and Artifact the ESP-MDF Project
 
 # Controls when the action will run. 
 on:
@@ -33,11 +36,11 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-      - name: Install ESP-IDF and Build project
-        uses: rmshub/esp-idf-action@v2
+      - name: Install ESP-MDF and Build project
+        uses: qdlmcfresh/esp-mdf-action@v2
         with: 
-            esp_idf_version: 'v4.3'
-            esp_idf_target: 'esp32'
+            esp_mdf_version: 'v1.0'
+            esp_mdf_target: 'esp32'
 
       - name: Archive build output artifacts
         uses: actions/upload-artifact@v2
@@ -51,7 +54,7 @@ jobs:
 
 ## Test
 
-Currently this action verified with esp-idf v4.3
+Currently this action verified with esp-mdf v1.0
 
 ## License
 
