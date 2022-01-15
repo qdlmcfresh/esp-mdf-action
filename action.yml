@@ -61,7 +61,8 @@ runs:
       shell: bash
 
     - run: |
-        source ~/esp/esp-mdf/export.sh
-        mdf.py set-target ${{ inputs.esp_mdf_target }}
-        mdf.py build
+        source ~/esp/esp-mdf/esp-idf/export.sh
+        export MDF_PATH=~/esp/esp-mdf
+        idf.py set-target ${{ inputs.esp_mdf_target }}
+        idf.py build
       shell: bash

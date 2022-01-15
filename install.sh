@@ -45,4 +45,4 @@ cd ~/esp/esp-mdf
 echo "## Install esp-mdf tools"
 
 # Install required tools
-./install.sh
+./esp-idf/install.sh
