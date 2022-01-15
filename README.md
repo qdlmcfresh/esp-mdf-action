@@ -13,7 +13,6 @@ or specify a commit with `esp_mdf_commit`
 The action runs on ubuntu latest and python3 as default interpreter.
 
 ### Example
-
 ```yml
 # This is a esp mdf workflow to build ESP32 based project
 
@@ -35,21 +34,24 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    steps:
+    - name: Install ESP-MDF and Build project
+      uses: qdlmcfresh/esp-mdf-action@v3.0
+      with: 
+          esp_mdf_version: 'v1.0'
+          esp_mdf_target: 'esp32'
+          #token: ${{ secrets.TOKEN }}
+          #submodules: 'recursive' set to true or 'recursive' if you need submodules
 
-      - name: Install ESP-MDF and Build project
-        uses: qdlmcfresh/esp-mdf-action@v2
-        with: 
-            esp_mdf_version: 'v1.0'
-            esp_mdf_target: 'esp32'
+    - name: Archive build output artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: |
+          build/bootloader/bootloader.bin
+          build/partition_table/partition-table.bin
+          build/${{ github.event.repository.name }}.bin
 
-      - name: Archive build output artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: |
-            build/bootloader/bootloader.bin
-            build/partition_table/partition-table.bin
-            build/${{ github.event.repository.name }}.bin
 ```
 
 ## Test
