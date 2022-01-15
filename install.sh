@@ -22,7 +22,7 @@ echo "## Download esp-mdf repository"
 
 if [ -n "$esp_mdf_commit" ]
 then
-    git clone --recursive https://github.com/espressif/esp-mdf.git -b $esp_mdf_commit
+    git clone --recursive https://github.com/espressif/esp-mdf.git -n $esp_mdf_commit
 else
     case $esp_mdf_version in
         latest)
