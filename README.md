@@ -56,7 +56,7 @@ jobs:
 
 ## Test
 
-Currently this action verified with esp-mdf v1.0
+Currently this action is verified with esp-mdf v1.0
 
 ## License
 
