@@ -7,7 +7,7 @@ esp_mdf_commit="$2"
 # Installing prerequisites
 echo "## Install prerequisites"
 
-sudo DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 
 sudo apt-get install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util
 
