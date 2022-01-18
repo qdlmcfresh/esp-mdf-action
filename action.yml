@@ -1,5 +1,5 @@
 name: 'ESP-MDF Project Build'
-author: 'rmshub'
+author: 'qdlmcfresh'
 description: 'GitHub action to install ESP-MDF tools for building esp-mdf projects'
 
 branding:
