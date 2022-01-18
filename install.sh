@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# esp idf repository version
-esp_idf_version="$1"
+# esp mdf repository version
+esp_mdf_version="$1"
+esp_mdf_commit="$2"
 
 # Installing prerequisites
 echo "## Install prerequisites"
@@ -17,28 +18,38 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 mkdir ~/esp
 cd ~/esp
 
-echo "## Download esp-idf repository"
+echo "## Download esp-mdf repository"
 
-case $esp_idf_version in
-    latest)
-        # Clone esp idf master branch repository
-        git clone --recursive https://github.com/espressif/esp-idf.git
-        ;;
-    *)
-        # Clone esp idf repository
-        wget https://dl.espressif.com/dl/esp-idf/releases/esp-idf-$esp_idf_version.zip
+if [ -n "$esp_mdf_commit" ]
+then
+    git clone --recursive https://github.com/espressif/esp-mdf.git
+    cd ~/esp/esp-mdf
+    git reset --hard $esp_mdf_commit
+    git submodule update --init --recursive
+else
+    case $esp_mdf_version in
+        latest)
+            # Clone esp mdf master branch repository
+            git clone --recursive https://github.com/espressif/esp-mdf.git
+            cd ~/esp/esp-mdf
+            esp_idf_version="`grep -Po "git clone -b (v\d\.(?:\d\.)*\d) --recursive https:\/\/github\.com\/espressif\/esp-idf\.git" README.md | grep -Po "(v\d\.(?:\d\.)*\d)"`"
+            git clone -b $esp_idf_version --recursive https://github.com/espressif/esp-idf.git
+            ;;
+        *)
+            # Clone esp mdf repository
+            wget https://dl.espressif.com/dl/esp-mdf/releases/esp-mdf-$esp_mdf_version.zip
 
-        # Extract the files and rename folder
-        unzip -q esp-idf-$esp_idf_version.zip && mv esp-idf-$esp_idf_version esp-idf
-        rm -f esp-idf-$esp_idf_version.zip
-        ;;
-esac
-
-# Navigate to esp idf repository
-cd ~/esp/esp-idf
+            # Extract the files and rename folder
+            unzip -q esp-mdf-$esp_mdf_version.zip && mv esp-mdf-$esp_mdf_version esp-mdf
+            rm -f esp-mdf-$esp_mdf_version.zip
+            ;;
+    esac
+fi
+# Navigate to esp mdf repository
+cd ~/esp/esp-mdf
 
 # Installing tools
-echo "## Install esp-idf tools"
+echo "## Install esp-mdf tools"
 
 # Install required tools
-./install.sh
+./esp-idf/install.sh

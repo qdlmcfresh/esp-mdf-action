@@ -1,6 +1,6 @@
-name: 'ESP-IDF Project Build'
+name: 'ESP-MDF Project Build'
 author: 'rmshub'
-description: 'GitHub action to install ESP-IDF tools for building esp-idf projects'
+description: 'GitHub action to install ESP-MDF tools for building esp-mdf projects'
 
 branding:
   icon: 'box'
@@ -19,11 +19,15 @@ inputs:
     description: 'Whether to checkout submodules: true to checkout submodules or recursive'
     required: false
     default: false
-  esp_idf_version:
-    description: 'ESP-IDF version'
+  esp_mdf_version:
+    description: 'ESP-MDF version'
     required: false
-    default: 'v4.3'
-  esp_idf_target:
+    default: 'v1.0'
+  esp_mdf_commit:
+    description: 'ESP-MDF commit'
+    required: false
+    default: ''
+  esp_mdf_target:
     description: 'Sets the target (chip) for which the project is built'
     required: false
     default: 'esp32'
@@ -38,26 +42,27 @@ runs:
         token: ${{ inputs.token }}
         submodules: ${{ inputs.submodules }}
     
-    - name: Cache esp-idf and its tools
-      id: esp-idf-cache
+    - name: Cache esp-mdf and its tools
+      id: esp-mdf-cache
       uses: actions/cache@v2
       with:
         path: |
-          ~/esp/esp-idf
+          ~/esp/esp-mdf
           ~/.espressif
-        key: ${{ runner.os }}-esp-${{ inputs.esp_idf_version }}
+        key: ${{ runner.os }}-esp-${{ inputs.esp_mdf_version }}
 
     - run: |
-        if echo ${{ steps.esp-idf-cache.outputs.cache-hit }} | grep -c "true"
+        if echo ${{ steps.esp-mdf-cache.outputs.cache-hit }} | grep -c "true"
         then 
           echo "Cache hit - skipping dependency installation"
         else
-          sh ${{ github.action_path }}/install.sh ${{ inputs.esp_idf_version }}
+          sh ${{ github.action_path }}/install.sh ${{ inputs.esp_mdf_version }} ${{ inputs.esp_mdf_commit }}
         fi
       shell: bash
 
     - run: |
-        source ~/esp/esp-idf/export.sh
-        idf.py set-target ${{ inputs.esp_idf_target }}
+        source ~/esp/esp-mdf/esp-idf/export.sh
+        export MDF_PATH=~/esp/esp-mdf
+        idf.py set-target ${{ inputs.esp_mdf_target }}
         idf.py build
       shell: bash
