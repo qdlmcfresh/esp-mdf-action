@@ -36,7 +36,7 @@ runs:
   using: "composite"
   steps:
     - name: Checkout the code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
         token: ${{ inputs.token }}
@@ -44,7 +44,7 @@ runs:
     
     - name: Cache esp-mdf and its tools
       id: esp-mdf-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/esp/esp-mdf
